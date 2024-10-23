@@ -11,7 +11,7 @@ import { resolve, dirname } from 'path';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
-const dotenv = (directory = dirname(resolve(process.cwd(), process.argv[1])) || __dirname) => {
+const dotenv = ({ directory = dirname(resolve(process.cwd(), process.argv[1])) || __dirname } = {}) => {
 
 	const env = process.env.NODE_ENV || 'development';
 
@@ -19,6 +19,8 @@ const dotenv = (directory = dirname(resolve(process.cwd(), process.argv[1])) || 
 		resolve(directory, '.env'),
 		resolve(directory, `.env.${env}`)
 	];
+
+	const result = {};
 
 	paths.forEach((path) => {
 		try {
@@ -29,13 +31,19 @@ const dotenv = (directory = dirname(resolve(process.cwd(), process.argv[1])) || 
 				.filter((line) => line && line[0] !== '#')
 				.forEach((line) => {
 					const [key, value] = line.split('=');
-					process.env[key] = value.trim().replace(/(^['"]|['"]$)/g, '');
+					result[key] = value.trim().replace(/(^['"]|['"]$)/g, '');
 				});
 		} catch (_) { }
 	});
 
-	if (directory !== '/') dotenv(resolve(directory, '..'));
+	if (directory !== '/') Object.assign(result, dotenv({ directory: resolve(directory, '..') }));
+
+	return result;
 
 };
 
-export default dotenv;
+export default ({ apply, ...others } = { apply: true }) => {
+	const env = dotenv({ ...others });
+	if (apply) Object.assign(process.env, env);
+	return env;
+};

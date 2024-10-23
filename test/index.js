@@ -11,10 +11,15 @@ import { expect } from 'chai';
 import dotenv from '../index.js';
 
 describe('config', () => {
-	before(() => {
-		dotenv();
+	describe('unapplied', () => {
+		it ('must contain variable from `.env` file.', () => {
+			expect(dotenv({ apply: false }).THIS_IS_A_TEST).to.equal('yes');
+		});
 	});
-	it ('must contain variable from `.env` file.', () => {
-		expect(process.env.THIS_IS_A_TEST).to.equal('yes');
+	describe('applied', () => {
+		before(() => dotenv());
+		it ('must contain variable from `.env` file.', () => {
+			expect(process.env.THIS_IS_A_TEST).to.equal('yes');
+		});
 	});
 });
