@@ -1,0 +1,32 @@
+{
+	"name": "@trenskow/dotenv",
+	"version": "0.1.0",
+	"description": "Parses .env files.",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "./node_modules/mocha/bin/mocha.js test/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/trenskow/dotenv.git"
+	},
+	"keywords": [
+		"dotenv",
+		"environment"
+	],
+	"author": "Kristian Trenskow <this.is@kristians.email>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/trenskow/dotenv/issues"
+	},
+	"homepage": "https://github.com/trenskow/dotenv#readme",
+	"devDependencies": {
+		"@eslint/eslintrc": "^3.1.0",
+		"@eslint/js": "^9.13.0",
+		"chai": "^5.1.1",
+		"eslint": "^9.13.0",
+		"globals": "^15.11.0",
+		"mocha": "^10.7.3"
+	}
+}
