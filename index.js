@@ -20,7 +20,7 @@ const dotenv = ({ directory = dirname(resolve(process.cwd(), process.argv[1])) |
 		resolve(directory, `.env.${env}`)
 	];
 
-	const result = {};
+	let result = {};
 
 	paths.forEach((path) => {
 		try {
@@ -36,7 +36,7 @@ const dotenv = ({ directory = dirname(resolve(process.cwd(), process.argv[1])) |
 		} catch (_) { }
 	});
 
-	if (directory !== '/') Object.assign(dotenv({ directory: resolve(directory, '..') }), result);
+	if (directory !== '/') result = Object.assign(dotenv({ directory: resolve(directory, '..') }), result);
 
 	return result;
 
