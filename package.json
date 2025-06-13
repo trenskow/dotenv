@@ -1,6 +1,6 @@
 {
 	"name": "@trenskow/dotenv",
-	"version": "0.1.11",
+	"version": "0.1.12",
 	"description": "Parses .env files.",
 	"main": "index.js",
 	"type": "module",
