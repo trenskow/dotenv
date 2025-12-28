@@ -7,7 +7,7 @@
 //
 
 import { readFileSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { resolve, dirname, parse } from 'path';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
@@ -36,7 +36,7 @@ const dotenv = ({ directory = dirname(resolve(process.cwd(), process.argv[1])) |
 		} catch (_) { }
 	});
 
-	if (!/^([A-Z]\:\\|\/)$/.test(directory)) result = Object.assign(dotenv({ directory: resolve(directory, '..') }), result);
+	if (parse(directory).root !== directory) result = Object.assign(dotenv({ directory: resolve(directory, '..') }), result);
 
 	return result;
 
