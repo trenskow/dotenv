@@ -36,7 +36,7 @@ const dotenv = ({ directory = dirname(resolve(process.cwd(), process.argv[1])) |
 		} catch (_) { }
 	});
 
-	if (directory !== '/') result = Object.assign(dotenv({ directory: resolve(directory, '..') }), result);
+	if (!/^([A-Z]\:\\|\/)$/.test(directory)) result = Object.assign(dotenv({ directory: resolve(directory, '..') }), result);
 
 	return result;
 
